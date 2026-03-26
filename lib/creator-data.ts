@@ -6,6 +6,8 @@ export interface Package {
   deliveryDays: number
   revisions: number
   features: string[]
+  scopeText?: string
+  tokenSupport?: string
 }
 
 export interface PortfolioItem {
@@ -71,8 +73,10 @@ export const creatorProfiles: Record<string, CreatorProfile> = {
     packages: [
       {
         id: "basic",
-        name: "Basic Character",
+        name: "Starter Character Card",
         description: "A well-crafted character card with personality, backstory, and sample dialogue",
+        scopeText: "Best for short RP-ready character cards",
+        tokenSupport: "Up to 800 tokens",
         price: 35,
         deliveryDays: 3,
         revisions: 2,
@@ -85,13 +89,15 @@ export const creatorProfiles: Record<string, CreatorProfile> = {
       },
       {
         id: "standard",
-        name: "Standard Character",
+        name: "Detailed Character Build",
         description: "A comprehensive character with expanded lore and multiple scenarios",
+        scopeText: "Ideal for deep narratives and specific world settings",
+        tokenSupport: "Up to 2000 tokens",
         price: 65,
         deliveryDays: 5,
         revisions: 3,
         features: [
-          "Everything in Basic",
+          "Everything in Starter",
           "1000+ word backstory",
           "25 dialogue examples",
           "3 scenario templates",
@@ -100,13 +106,15 @@ export const creatorProfiles: Record<string, CreatorProfile> = {
       },
       {
         id: "premium",
-        name: "Premium Character",
+        name: "Premium Character + Lore Hooks",
         description: "A fully realized character with extensive worldbuilding integration",
+        scopeText: "Perfect for massive RPG bots or ongoing worldbuilding",
+        tokenSupport: "Up to 5000+ tokens",
         price: 120,
         deliveryDays: 7,
         revisions: 5,
         features: [
-          "Everything in Standard",
+          "Everything in Detailed",
           "2000+ word backstory",
           "50+ dialogue examples",
           "Custom lorebook entries",
@@ -233,8 +241,10 @@ export function getCreatorProfile(id: string): CreatorProfile | undefined {
     packages: [
       {
         id: "basic",
-        name: "Basic Package",
+        name: "Starter Character Card",
         description: `Standard ${baseCreator.specialties[0]} creation`,
+        scopeText: "Best for short RP-ready character cards",
+        tokenSupport: "Up to 800 tokens",
         price: baseCreator.startingPrice,
         deliveryDays: 3,
         revisions: 1,
@@ -242,21 +252,25 @@ export function getCreatorProfile(id: string): CreatorProfile | undefined {
       },
       {
         id: "standard",
-        name: "Standard Package",
+        name: "Detailed Character Build",
         description: `Premium ${baseCreator.specialties[0]} with extras`,
+        scopeText: "Ideal for deep narratives and specific world settings",
+        tokenSupport: "Up to 2000 tokens",
         price: Math.round(baseCreator.startingPrice * 1.8),
         deliveryDays: 5,
         revisions: 2,
-        features: ["Everything in Basic", "Source files", "Additional revisions"],
+        features: ["Everything in Starter", "Source files", "Additional revisions"],
       },
       {
         id: "premium",
-        name: "Premium Package",
+        name: "Premium Character + Lore Hooks",
         description: `The ultimate ${baseCreator.specialties[0]} experience`,
+        scopeText: "Perfect for massive RPG bots or ongoing worldbuilding",
+        tokenSupport: "Up to 5000+ tokens",
         price: Math.round(baseCreator.startingPrice * 3.5),
         deliveryDays: 7,
         revisions: 5,
-        features: ["Everything in Standard", "Priority support", "Commercial use rights"],
+        features: ["Everything in Detailed", "Priority support", "Commercial use rights"],
       },
     ],
     portfolio: [

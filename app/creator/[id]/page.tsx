@@ -26,6 +26,7 @@ import {
   Share2,
   Check,
 } from "lucide-react"
+import { CreatorPurchaseActions } from "@/components/creator-purchase-actions"
 
 interface CreatorPageProps {
   params: Promise<{ id: string }>
@@ -42,7 +43,7 @@ export default async function CreatorPage({ params }: CreatorPageProps) {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1">
+      <main className="flex-1 pb-40">
         {/* Banner */}
         <div className="relative h-48 sm:h-64 lg:h-80">
           <Image
@@ -262,42 +263,14 @@ export default async function CreatorPage({ params }: CreatorPageProps) {
               </Tabs>
             </div>
 
-            {/* Right Column - Packages */}
+            {/* Right Column - Purchase Actions */}
             <div className="lg:col-span-1">
-              <div className="sticky top-24 space-y-4">
-                <h2 className="text-lg font-semibold">Packages</h2>
-                {creator.packages.map((pkg) => (
-                  <Card key={pkg.id} className="overflow-hidden">
-                    <CardHeader className="bg-muted/50 pb-3">
-                      <div className="flex items-center justify-between">
-                        <CardTitle className="text-base">{pkg.name}</CardTitle>
-                        <span className="text-2xl font-bold">${pkg.price}</span>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="pt-4">
-                      <p className="text-sm text-muted-foreground">{pkg.description}</p>
-                      <div className="mt-4 flex items-center gap-4 text-sm text-muted-foreground">
-                        <div className="flex items-center gap-1">
-                          <Clock className="h-4 w-4" />
-                          <span>{pkg.deliveryDays} days</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <CheckCircle2 className="h-4 w-4" />
-                          <span>{pkg.revisions} revisions</span>
-                        </div>
-                      </div>
-                      <ul className="mt-4 space-y-2">
-                        {pkg.features.map((feature, index) => (
-                          <li key={index} className="flex items-start gap-2 text-sm">
-                            <Check className="h-4 w-4 shrink-0 text-primary mt-0.5" />
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <Button className="mt-4 w-full">Select Package</Button>
-                    </CardContent>
-                  </Card>
-                ))}
+              <div className="sticky top-24 pt-16">
+                <CreatorPurchaseActions 
+                  creatorName={creator.name} 
+                  startingPrice={creator.packages[0]?.price || 35} 
+                  packages={creator.packages}
+                />
               </div>
             </div>
           </div>
