@@ -199,6 +199,115 @@ export const creatorProfiles: Record<string, CreatorProfile> = {
   },
 }
 
+import { allCreators } from "./mock-data"
+
 export function getCreatorProfile(id: string): CreatorProfile | undefined {
-  return creatorProfiles[id]
+  if (creatorProfiles[id]) {
+    return creatorProfiles[id]
+  }
+
+  // Fallback to dynamically generating the profile based on the mock data
+  const baseCreator = allCreators.find((c) => c.id === id)
+  if (!baseCreator) {
+    return undefined
+  }
+
+  return {
+    id: baseCreator.id,
+    name: baseCreator.name,
+    handle: baseCreator.handle,
+    avatar: baseCreator.avatar,
+    banner: baseCreator.coverImage,
+    bio: `Hi, I am ${baseCreator.name}. I specialize in ${baseCreator.specialties.join(", ")}. I create high-quality content tailored for your AI characters and fantasy worlds. Contact me to bring your creative vision to life!`,
+    location: "Global",
+    memberSince: "January 2024",
+    rating: baseCreator.rating,
+    reviewCount: baseCreator.reviewCount,
+    responseTime: baseCreator.responseTime,
+    completionRate: 98,
+    completedOrders: baseCreator.completedOrders,
+    isVerified: baseCreator.isVerified,
+    isAvailable: baseCreator.isAvailable,
+    specialties: baseCreator.specialties,
+    languages: ["English"],
+    packages: [
+      {
+        id: "basic",
+        name: "Basic Package",
+        description: `Standard ${baseCreator.specialties[0]} creation`,
+        price: baseCreator.startingPrice,
+        deliveryDays: 3,
+        revisions: 1,
+        features: ["High quality delivery", "Basic revisions"],
+      },
+      {
+        id: "standard",
+        name: "Standard Package",
+        description: `Premium ${baseCreator.specialties[0]} with extras`,
+        price: Math.round(baseCreator.startingPrice * 1.8),
+        deliveryDays: 5,
+        revisions: 2,
+        features: ["Everything in Basic", "Source files", "Additional revisions"],
+      },
+      {
+        id: "premium",
+        name: "Premium Package",
+        description: `The ultimate ${baseCreator.specialties[0]} experience`,
+        price: Math.round(baseCreator.startingPrice * 3.5),
+        deliveryDays: 7,
+        revisions: 5,
+        features: ["Everything in Standard", "Priority support", "Commercial use rights"],
+      },
+    ],
+    portfolio: [
+      {
+        id: "1",
+        title: "Featured Work",
+        image: baseCreator.coverImage,
+        category: baseCreator.specialties[0] || "General",
+      },
+      {
+        id: "2",
+        title: "Creative Concept",
+        image: "/portfolio/captain-nova.jpg",
+        category: baseCreator.specialties[1] || "Concept",
+      },
+      {
+        id: "3",
+        title: "Detailed Design",
+        image: "/portfolio/elara-starweaver.jpg",
+        category: baseCreator.specialties[2] || "Design",
+      }
+    ],
+    reviews: [
+      {
+        id: "1",
+        author: "Happy Client",
+        avatar: "/avatars/alex-testimonial.jpg",
+        rating: 5,
+        content: `Amazing work! ${baseCreator.name} delivered exactly what I asked for.`,
+        date: "1 week ago",
+        orderType: "Standard Package",
+      },
+      {
+        id: "2",
+        author: "Creative User",
+        avatar: "/avatars/sarah-testimonial.jpg",
+        rating: Math.floor(baseCreator.rating),
+        content: `Great communication and quality delivery. Highly recommend for ${baseCreator.specialties[0]}.`,
+        date: "1 month ago",
+        orderType: "Basic Package",
+      }
+    ],
+    faqs: [
+      {
+        question: "What information do you need to get started?",
+        answer: "I will need a brief description of your concept and any specific elements you want included.",
+      },
+      {
+        question: "Do you offer rush delivery?",
+        answer: "Yes, I can accommodate rush orders for an additional fee. Please message me first.",
+      },
+    ],
+  }
 }
